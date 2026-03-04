@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "flutter-bloc": {
+      "source": "dhruvanbhalara/skills",
+      "sourceType": "github",
+      "computedHash": "b7f177e7f443a3b003d74099031d0a9129fb53825c4cfcf7b50655cc7086435a"
+    }
+  }
+}

@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(flutter --version)",
-      "Bash(flutter create --project-name kkumul .)"
+      "Bash(flutter create --project-name kkumul .)",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__whoami",
+      "mcp__figma-desktop__get_design_context",
+      "Bash(mkdir:*)",
+      "Bash(flutter analyze:*)",
+      "mcp__figma-desktop__get_screenshot",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
