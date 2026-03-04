@@ -1,0 +1,6 @@
+{
+  "ENV": "dev",
+  "APP_NAME": "KKUMUL Dev",
+  "APP_SUFFIX": ".dev",
+  "API_BASE_URL": "https://dev-api.kkumul.com"
+}

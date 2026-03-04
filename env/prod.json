@@ -1,0 +1,6 @@
+{
+  "ENV": "prod",
+  "APP_NAME": "KKUMUL",
+  "APP_SUFFIX": "",
+  "API_BASE_URL": "https://api.kkumul.com"
+}
