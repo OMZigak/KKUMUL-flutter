@@ -10,7 +10,11 @@
       "Bash(flutter analyze:*)",
       "mcp__figma-desktop__get_screenshot",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "mcp__figma-desktop__get_metadata",
+      "Bash(cat:*)",
+      "Bash(flutter pub:*)",
+      "Bash(flutter devices)"
     ]
   }
 }
