@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kkumul/shared/widgets/theme/app_colors.dart';
-import 'package:kkumul/shared/widgets/icons/app_icons.dart';
+import 'package:kkumul/shared/constants/app_assets.dart';
 
 /// Progress state for the home appointment card
 enum ProgressState {
@@ -204,14 +205,28 @@ class HomeAppointmentCard extends StatelessWidget {
     );
   }
 
+  /// Location and time row
+  /// Figma: gap=12 between location and time, gap=4 between icon and text
   Widget _buildLocationTimeRow() {
     return Row(
       children: [
-        // Location
+        // Location - Figma: ic_pin_fill + text, gap=4
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AppIcons.pinFill(color: const Color(0xFF242424), size: 24),
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset(
+                AppAssets.icPin,
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF242424), // gray8
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
             const SizedBox(width: 4),
             Text(
               location,
@@ -221,17 +236,29 @@ class HomeAppointmentCard extends StatelessWidget {
                 fontSize: 14,
                 height: 1.6,
                 letterSpacing: -0.28,
-                color: Color(0xFF242424),
+                color: Color(0xFF242424), // gray8
               ),
             ),
           ],
         ),
-        const SizedBox(width: 12),
-        // Time
+        const SizedBox(width: 12), // gap: 12px
+        // Time - Figma: ic_time_fill + text, gap=4
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AppIcons.timeFill(color: const Color(0xFF242424), size: 24),
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset(
+                AppAssets.icTime,
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF242424), // gray8
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
             const SizedBox(width: 4),
             Text(
               time,
@@ -241,7 +268,7 @@ class HomeAppointmentCard extends StatelessWidget {
                 fontSize: 14,
                 height: 1.6,
                 letterSpacing: -0.28,
-                color: Color(0xFF242424),
+                color: Color(0xFF242424), // gray8
               ),
             ),
           ],
@@ -336,93 +363,86 @@ class HomeAppointmentCard extends StatelessWidget {
     String? helpText,
     VoidCallback? onTap,
   }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Spacer for top alignment
-        const SizedBox(height: 8),
-        // Progress point
-        _buildProgressPoint(state),
-        const SizedBox(height: 8),
-        // Button
-        GestureDetector(
-          onTap: state != ProgressState.disabled ? onTap : null,
-          child: Container(
-            width: 84,
-            height: 32,
-            decoration: BoxDecoration(
-              color: _getButtonBackgroundColor(state),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: _getButtonBorderColor(state),
-                width: 1,
+    return SizedBox(
+      height: 103,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
+          // Progress point
+          _buildProgressPoint(state),
+          const SizedBox(height: 8),
+          // Button
+          GestureDetector(
+            onTap: state != ProgressState.disabled ? onTap : null,
+            child: Container(
+              width: 84,
+              height: 32,
+              decoration: BoxDecoration(
+                color: _getButtonBackgroundColor(state),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: _getButtonBorderColor(state),
+                  width: 1,
+                ),
               ),
-            ),
-            child: Center(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  height: 1.6,
-                  letterSpacing: -0.28,
-                  color: _getButtonTextColor(state),
+              child: Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    height: 1.0,
+                    letterSpacing: -0.28,
+                    color: _getButtonTextColor(state),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        // Help message
-        if (showHelpMessage && helpText != null) ...[
-          const SizedBox(height: 2),
-          SizedBox(
-            height: 16,
-            child: Text(
-              helpText,
-              style: const TextStyle(
-                fontFamily: 'Pretendard',
-                fontWeight: FontWeight.w400,
-                fontSize: 10,
-                height: 1.6,
-                letterSpacing: -0.2,
-                color: Color(0xFF8B8B8B),
+          // Help message or spacer
+          if (showHelpMessage && helpText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                helpText,
+                style: const TextStyle(
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 10,
+                  height: 1.0,
+                  letterSpacing: -0.2,
+                  color: Color(0xFF8B8B8B),
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ] else ...[
-          const SizedBox(height: 18),
+            )
+          else
+            const SizedBox(height: 14),
         ],
-      ],
+      ),
     );
   }
 
+  /// Progress point indicator
+  /// Figma: ready_point, 16x16
   Widget _buildProgressPoint(ProgressState state) {
-    final bool isActive =
-        state == ProgressState.inProgress || state == ProgressState.arrive;
-    return Container(
+    // Use SVG asset for progress point (ready_point.svg)
+    return SizedBox(
       width: 16,
       height: 16,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isActive ? AppColors.mainColor : AppColors.gray2,
-        border: Border.all(
-          color: isActive ? AppColors.mainColor : AppColors.gray2,
-          width: 2,
+      child: SvgPicture.asset(
+        AppAssets.readyPoint,
+        width: 16,
+        height: 16,
+        colorFilter: ColorFilter.mode(
+          state == ProgressState.inProgress || state == ProgressState.arrive
+              ? AppColors.mainColor
+              : AppColors.gray2,
+          BlendMode.srcIn,
         ),
       ),
-      child: isActive
-          ? const Center(
-              child: Icon(
-                Icons.check,
-                size: 10,
-                color: AppColors.white,
-              ),
-            )
-          : null,
     );
   }
 

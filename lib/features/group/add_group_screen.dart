@@ -100,6 +100,7 @@ class _OptionCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     subtitle,
@@ -107,7 +108,6 @@ class _OptionCard extends StatelessWidget {
                       color: AppColors.gray5,
                     ),
                   ),
-                  const SizedBox(height: 2),
                   Text(
                     title,
                     style: AppTextStyles.body03.copyWith(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kkumul/shared/widgets/theme/app_colors.dart';
-import 'package:kkumul/shared/widgets/icons/app_icons.dart';
+import 'package:kkumul/shared/constants/app_assets.dart';
 
 /// Appointment date type for D-day display
 enum AppointmentDateType {
@@ -184,37 +185,45 @@ class AppointmentCard extends StatelessWidget {
     );
   }
 
+  /// Detail info section with date, time, location
+  /// Figma: gap=8 between rows
   Widget _buildDetailInfo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Date row
+        // Date row - Figma: ic_date_fill + text, gap=8
         _buildInfoRow(
-          icon: AppIcons.dateFill(color: const Color(0xFF3D3D3D)),
+          iconPath: AppAssets.icDate,
           text: date,
+          iconColor: const Color(0xFF3D3D3D), // gray7
           textColor: const Color(0xFF3D3D3D), // gray7
         ),
-        const SizedBox(height: 8),
-        // Time row
+        const SizedBox(height: 8), // gap: 8px
+        // Time row - Figma: ic_time_fill + text, gap=8
         _buildInfoRow(
-          icon: AppIcons.timeFill(color: const Color(0xFF242424)),
+          iconPath: AppAssets.icTime,
           text: time,
+          iconColor: const Color(0xFF242424), // gray8
           textColor: const Color(0xFF242424), // gray8
         ),
-        const SizedBox(height: 8),
-        // Location row
+        const SizedBox(height: 8), // gap: 8px
+        // Location row - Figma: ic_pin_fill + text, gap=8
         _buildInfoRow(
-          icon: AppIcons.pinFill(color: const Color(0xFF242424)),
+          iconPath: AppAssets.icPin,
           text: location,
+          iconColor: const Color(0xFF242424), // gray8
           textColor: const Color(0xFF242424), // gray8
         ),
       ],
     );
   }
 
+  /// Info row with SVG icon and text
+  /// Figma: icon 24x24, gap=8 between icon and text
   Widget _buildInfoRow({
-    required Widget icon,
+    required String iconPath,
     required String text,
+    required Color iconColor,
     required Color textColor,
   }) {
     return Row(
@@ -222,9 +231,17 @@ class AppointmentCard extends StatelessWidget {
         SizedBox(
           width: 24,
           height: 24,
-          child: icon,
+          child: SvgPicture.asset(
+            iconPath,
+            width: 24,
+            height: 24,
+            colorFilter: ColorFilter.mode(
+              iconColor,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 8), // gap: 8px
         Expanded(
           child: Text(
             text,

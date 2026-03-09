@@ -87,31 +87,41 @@ class ProgressCard extends StatelessWidget {
   }
 
   Widget _buildProgressCard() {
+    // Figma: progress_card_appnt (node I1:15633;1:14230)
+    // height: 136, borderRadius: 8, shadow: drop shadow
     return Container(
       width: 335,
       height: 136,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColors.gray2,
-          width: 1,
-        ),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x05000000), // rgba(0,0,0,0.02)
+            offset: Offset(3, 3),
+            blurRadius: 4,
+          ),
+          BoxShadow(
+            color: Color(0x05000000), // rgba(0,0,0,0.02)
+            offset: Offset(-3, -3),
+            blurRadius: 4,
+          ),
+        ],
       ),
       child: Stack(
         children: [
-          // Progress bar
+          // Progress bar - Figma: readyinfo_progrbar_ios at top: 50.5px
           Positioned(
-            left: -0.5,
-            right: 0,
-            top: 49.5,
+            left: 0.5,
+            right: 0.5,
+            top: 50.5,
             child: _buildProgressBar(),
           ),
-          // Progress buttons row
+          // Progress buttons row - Figma: top: 19px
           Positioned(
-            left: -1,
-            right: 0,
-            top: 18,
+            left: 0,
+            right: 4,
+            top: 19,
             child: _buildProgressButtonsRow(),
           ),
         ],
@@ -120,9 +130,10 @@ class ProgressCard extends StatelessWidget {
   }
 
   Widget _buildProgressBar() {
+    // Figma: readyinfo_progrbar_ios (node I1:15633;1:14231)
+    // height: 5, width: 334, bg: #DFDFDF, fill: #0FD380
     return Container(
       height: 5,
-      margin: const EdgeInsets.symmetric(horizontal: 0.5),
       decoration: const BoxDecoration(
         color: Color(0xFFDFDFDF), // gray2
       ),
@@ -130,16 +141,19 @@ class ProgressCard extends StatelessWidget {
         alignment: Alignment.centerLeft,
         widthFactor: progressValue.clamp(0.0, 1.0),
         child: Container(
-          color: AppColors.mainColor,
+          color: AppColors.mainColor, // #0FD380
         ),
       ),
     );
   }
 
   Widget _buildProgressButtonsRow() {
+    // Figma: btn_state components - each w:110, h:82 with -4px margin
     return Row(
       children: [
-        Expanded(
+        // Ready button - Figma node I1:15633;1:14233
+        SizedBox(
+          width: 110,
           child: _buildProgressButton(
             state: readyState,
             label: readyLabel,
@@ -148,17 +162,21 @@ class ProgressCard extends StatelessWidget {
             onTap: onReadyTap,
           ),
         ),
-        Expanded(
+        // Move button - Figma node I1:15633;1:14234
+        SizedBox(
+          width: 110,
           child: _buildProgressButton(
             state: moveState,
             label: moveLabel,
             showHelpMessage:
                 moveState == ProgressButtonState.start && helpMessage != null,
-            helpText: helpMessage,
+            helpText: helpMessage ?? '이동을 시작 시 눌러주세요',
             onTap: onMoveTap,
           ),
         ),
-        Expanded(
+        // Arrive button - disabled state
+        SizedBox(
+          width: 110,
           child: _buildProgressButton(
             state: arriveState,
             label: arriveLabel,
@@ -178,104 +196,116 @@ class ProgressCard extends StatelessWidget {
     String? helpText,
     VoidCallback? onTap,
   }) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        // Time text (if showing)
-        if (showTime && timeText != null) ...[
-          Text(
-            timeText,
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-              height: 1.6,
-              letterSpacing: -0.24,
-              color: Color(0xFF242424),
-            ),
-          ),
-          const SizedBox(height: 8),
-        ] else ...[
-          const SizedBox(height: 27),
-        ],
-        // Progress point
-        _buildProgressPoint(state),
-        const SizedBox(height: 8),
-        // Button
-        GestureDetector(
-          onTap: state != ProgressButtonState.disabled ? onTap : null,
-          child: Container(
-            width: 84,
-            height: 32,
-            decoration: BoxDecoration(
-              color: _getButtonBackgroundColor(state),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: _getButtonBorderColor(state),
-                width: 1,
+    // Figma: btn_state component - w:110, h:82
+    // Layout: gap 8px between elements, justify-end
+    return SizedBox(
+      height: 82,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Time text (if showing) - Figma: caption 02 style
+          if (showTime && timeText != null) ...[
+            Text(
+              timeText,
+              style: const TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                height: 1.6,
+                letterSpacing: -0.24,
+                color: Color(0xFF242424), // gray8
               ),
             ),
-            child: Center(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  height: 1.6,
-                  letterSpacing: -0.28,
-                  color: _getButtonTextColor(state),
+          ],
+          const SizedBox(height: 8),
+          // Progress point - Figma: ready_point (16x16)
+          _buildProgressPoint(state),
+          const SizedBox(height: 8),
+          // Button - Figma: main_btn_kkumul_ios / btn_small (w:84, h:32, borderRadius:20)
+          GestureDetector(
+            onTap: state != ProgressButtonState.disabled ? onTap : null,
+            child: Container(
+              width: 84,
+              height: 32,
+              decoration: BoxDecoration(
+                color: _getButtonBackgroundColor(state),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: _getButtonBorderColor(state),
+                  width: 1,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    height: 1.6,
+                    letterSpacing: -0.28,
+                    color: _getButtonTextColor(state),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        // Help message
-        if (showHelpMessage && helpText != null) ...[
-          const SizedBox(height: 4),
-          Text(
-            helpText,
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontWeight: FontWeight.w400,
-              fontSize: 10,
-              height: 1.6,
-              letterSpacing: -0.2,
-              color: Color(0xFF8B8B8B),
+          // Help message - Figma: label 02 style, color: #8B8B8B (gray5)
+          if (showHelpMessage && helpText != null) ...[
+            const SizedBox(height: 4),
+            SizedBox(
+              width: 112,
+              child: Text(
+                helpText,
+                style: const TextStyle(
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 10,
+                  height: 1.6,
+                  letterSpacing: -0.2,
+                  color: Color(0xFF8B8B8B), // gray5
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-            textAlign: TextAlign.center,
-          ),
-        ] else ...[
-          const SizedBox(height: 20),
+          ],
         ],
-      ],
+      ),
     );
   }
 
   Widget _buildProgressPoint(ProgressButtonState state) {
+    // Figma: ready_point (16x16)
+    // active state (inProgress/arrive): filled green (#0FD380)
+    // inactive state (disabled/start): gray ring (#DFDFDF)
     final bool isActive = state == ProgressButtonState.inProgress ||
         state == ProgressButtonState.arrive;
-    return Container(
-      width: 16,
-      height: 16,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isActive ? AppColors.mainColor : AppColors.gray2,
-        border: Border.all(
-          color: isActive ? AppColors.mainColor : AppColors.gray2,
-          width: 2,
+
+    if (isActive) {
+      // Figma: imgReadyPoint1 - filled green circle
+      return Container(
+        width: 16,
+        height: 16,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFF0FD380), // mainColor
         ),
-      ),
-      child: isActive
-          ? const Center(
-              child: Icon(
-                Icons.check,
-                size: 10,
-                color: AppColors.white,
-              ),
-            )
-          : null,
-    );
+      );
+    } else {
+      // Figma: imgReadyPoint - gray ring (stroke only)
+      return Container(
+        width: 16,
+        height: 16,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+          border: Border.all(
+            color: const Color(0xFFDFDFDF), // gray2
+            width: 2,
+          ),
+        ),
+      );
+    }
   }
 
   Color _getButtonBackgroundColor(ProgressButtonState state) {
@@ -315,32 +345,36 @@ class ProgressCard extends StatelessWidget {
   }
 
   Widget _buildPopupMessage() {
+    // Figma: text_popup (node I1:15633;1:14236)
+    // Union shape with arrow pointing up, height: 40, width: 335
+    // text: caption 01 style, color: #ECFCF5 (green1)
     return SizedBox(
       width: 335,
       height: 40,
       child: Stack(
         children: [
-          // Speech bubble background
+          // Speech bubble background - Figma: Union shape
           Positioned.fill(
             child: CustomPaint(
               painter: _SpeechBubblePainter(),
             ),
           ),
-          // Message text
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 6),
-              child: Text(
-                popupMessage,
-                style: const TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                  height: 1.6,
-                  letterSpacing: -0.24,
-                  color: AppColors.white,
-                ),
+          // Message text - Figma: centered, top offset for arrow
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 14, // offset for arrow + centering
+            child: Text(
+              popupMessage,
+              style: const TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                height: 1.6,
+                letterSpacing: -0.24,
+                color: Color(0xFFECFCF5), // green1
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],

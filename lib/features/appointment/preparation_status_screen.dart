@@ -189,21 +189,35 @@ class _PreparationStatusScreenState extends State<PreparationStatusScreen>
               onMorePressed: _showMoreOptions,
             ),
 
-            // TabBar
+            // TabBar - Figma: grp_topbar_ios (node 1:15635)
             Container(
+              height: 52,
               color: AppColors.white,
-              child: TabBar(
-                controller: _tabController,
-                indicatorColor: AppColors.mainColor,
-                indicatorWeight: 2,
-                labelColor: AppColors.mainColor,
-                unselectedLabelColor: AppColors.textTertiary,
-                labelStyle: AppTextStyles.body05,
-                unselectedLabelStyle: AppTextStyles.body06,
-                tabs: const [
-                  Tab(text: '약속 정보'),
-                  Tab(text: '준비 현황'),
-                  Tab(text: '지각 꾸물이'),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: TabBar(
+                      controller: _tabController,
+                      indicatorColor: AppColors.gray8, // #242424
+                      indicatorWeight: 2,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelColor: AppColors.gray8, // #242424
+                      unselectedLabelColor: AppColors.gray3, // #C1C1C1
+                      labelStyle: AppTextStyles.body05,
+                      unselectedLabelStyle: AppTextStyles.body05,
+                      dividerColor: Colors.transparent,
+                      tabs: const [
+                        Tab(text: '약속 정보'),
+                        Tab(text: '준비 현황'),
+                        Tab(text: '지각 꾸물이'),
+                      ],
+                    ),
+                  ),
+                  // Bottom border line
+                  Container(
+                    height: 1,
+                    color: AppColors.gray2,
+                  ),
                 ],
               ),
             ),
@@ -272,33 +286,39 @@ class _PreparationStatusScreenState extends State<PreparationStatusScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 준비 정보 입력하기 버튼
+          // 준비 정보 입력하기 버튼 - Figma: JoinBtnInviteIos type="title" (node 1:15634)
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
             child: GestureDetector(
               onTap: _navigateToPreparationInput,
               child: Container(
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                height: 54,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.mainColor),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.edit_outlined,
-                      size: 20,
-                      color: AppColors.mainColor,
+                    Expanded(
+                      child: Text(
+                        '준비 정보 입력하기',
+                        style: AppTextStyles.body03.copyWith(
+                          color: AppColors.gray8, // #242424
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '준비 정보 입력하기',
-                      style: AppTextStyles.body05.copyWith(
-                        color: AppColors.mainColor,
+                    // ic_right arrow icon
+                    SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: Center(
+                        child: Icon(
+                          Icons.chevron_right,
+                          size: 24,
+                          color: AppColors.gray3, // #C1C1C1
+                        ),
                       ),
                     ),
                   ],
@@ -307,17 +327,19 @@ class _PreparationStatusScreenState extends State<PreparationStatusScreen>
             ),
           ),
 
-          // 나의 준비 현황 섹션
+          const SizedBox(height: 16),
+
+          // 나의 준비 현황 섹션 - Figma node 1:15631
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               '나의 준비 현황',
-              style: AppTextStyles.body03.copyWith(
-                color: AppColors.textPrimary,
+              style: AppTextStyles.body01.copyWith(
+                color: AppColors.gray8, // #242424
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
 
           // Progress Card
           Padding(
@@ -340,32 +362,21 @@ class _PreparationStatusScreenState extends State<PreparationStatusScreen>
             ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
-          // 우리들의 준비 현황 섹션
+          // 우리들의 준비 현황 섹션 - Figma node 1:15623
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Text(
-                  '우리들의 준비 현황',
-                  style: AppTextStyles.body03.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '${_members.length}명',
-                  style: AppTextStyles.body05.copyWith(
-                    color: AppColors.mainColor,
-                  ),
-                ),
-              ],
+            child: Text(
+              '우리들의 준비 현황',
+              style: AppTextStyles.body01.copyWith(
+                color: AppColors.gray8, // #242424
+              ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
 
-          // 멤버 카드 리스트
+          // 멤버 카드 리스트 - Figma: gap 8px between cards
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -383,7 +394,7 @@ class _PreparationStatusScreenState extends State<PreparationStatusScreen>
             ),
           ),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 24),
         ],
       ),
     );

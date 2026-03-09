@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kkumul/shared/constants/app_assets.dart';
 import 'package:kkumul/shared/widgets/theme/theme.dart';
 import 'package:kkumul/shared/widgets/navigation/top_bar.dart';
 
@@ -109,10 +111,10 @@ class _GroupListScreenState extends State<GroupListScreen> {
             const SizedBox(height: 24),
             // Header text
             _buildHeaderText(0),
-            const SizedBox(height: 44),
+            const SizedBox(height: 18),
             // Add group button
             _buildAddGroupButton(),
-            const SizedBox(height: 86),
+            const SizedBox(height: 94),
             // Empty illustration
             _buildEmptyIllustration(),
           ],
@@ -186,18 +188,18 @@ class _GroupListScreenState extends State<GroupListScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Plus icon
-            Container(
+            // Plus icon (ic_grpplus SVG)
+            SizedBox(
               width: 24,
               height: 24,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.green3,
-              ),
-              child: const Icon(
-                Icons.add,
-                size: 16,
-                color: AppColors.white,
+              child: SvgPicture.asset(
+                AppAssets.icGrpplus,
+                width: 20,
+                height: 20,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.green3,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
             const SizedBox(width: 8),
@@ -220,111 +222,58 @@ class _GroupListScreenState extends State<GroupListScreen> {
 
   Widget _buildEmptyIllustration() {
     return Center(
-      child: Column(
-        children: [
-          // Illustration placeholder
-          SizedBox(
-            width: 100,
-            height: 174,
-            child: Column(
-              children: [
-                // Chat bubbles illustration
-                SizedBox(
-                  width: 100,
-                  height: 52,
-                  child: Stack(
-                    children: [
-                      // Left bubble
-                      Positioned(
-                        left: 0,
-                        top: 0,
-                        child: Container(
-                          width: 60,
-                          height: 36,
-                          decoration: BoxDecoration(
-                            color: AppColors.gray1,
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              _buildDot(),
-                              const SizedBox(width: 4),
-                              _buildDot(),
-                              const SizedBox(width: 4),
-                              _buildDot(),
-                            ],
-                          ),
-                        ),
-                      ),
-                      // Right bubble
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: Container(
-                          width: 50,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            color: AppColors.gray1,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              _buildDot(),
-                              const SizedBox(width: 4),
-                              _buildDot(),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+      child: SizedBox(
+        width: 258,
+        child: Column(
+          children: [
+            // Empty illustration (bubble + character)
+            SizedBox(
+              width: 100,
+              height: 174,
+              child: Column(
+                children: [
+                  // Chat bubble illustration (emptyBubble)
+                  SizedBox(
+                    width: 100,
+                    height: 52.055,
+                    child: SvgPicture.asset(
+                      AppAssets.emptyBubble,
+                      width: 100,
+                      height: 52.055,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                // Character illustration
-                Container(
-                  width: 100,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: AppColors.gray1,
-                    borderRadius: BorderRadius.circular(50),
+                  const SizedBox(height: 12),
+                  // Character illustration (emptyGroup)
+                  SizedBox(
+                    width: 100,
+                    height: 109.589,
+                    child: SvgPicture.asset(
+                      AppAssets.emptyGroup,
+                      width: 100,
+                      height: 109.589,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.sentiment_satisfied_alt,
-                    size: 60,
-                    color: AppColors.gray3,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          // Empty state text
-          const Text(
-            '아직 모임이 없네요!\n모임을 추가해 보세요.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Pretendard',
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              height: 1.6,
-              letterSpacing: -0.28,
-              color: AppColors.gray4,
+            const SizedBox(height: 16),
+            // Empty state text
+            const Text(
+              '아직 모임이 없네요!\n모임을 추가해 보세요.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                height: 1.6,
+                letterSpacing: -0.28,
+                color: AppColors.gray4,
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDot() {
-    return Container(
-      width: 6,
-      height: 6,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.gray3,
+          ],
+        ),
       ),
     );
   }

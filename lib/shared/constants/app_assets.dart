@@ -42,6 +42,7 @@ class AppAssets {
   // Action icons
   static const String icRight = 'assets/icons/ic_right.svg';
   static const String icEditProfile = 'assets/icons/ic_edit_profile.svg';
+  static const String icGrpplus = 'assets/icons/ic_grpplus.svg';
 
   // State icons
   static const String readyPoint = 'assets/icons/ready_point.svg';

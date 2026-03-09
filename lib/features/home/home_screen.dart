@@ -4,12 +4,12 @@ import 'package:kkumul/shared/widgets/theme/app_colors.dart';
 import 'package:kkumul/shared/widgets/theme/app_text_styles.dart';
 import 'package:kkumul/shared/widgets/cards/home_appointment_card.dart';
 import 'package:kkumul/shared/widgets/cards/appointment_card.dart';
-import 'package:kkumul/shared/widgets/icons/app_icons.dart';
 import 'package:kkumul/shared/constants/app_assets.dart';
 
 /// Home screen for the Kkumul app (홈_1단계)
 ///
 /// Matches Figma node 1:15377 exactly
+/// Screen size: 375 x 812
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Green header section (fixed height based on Figma)
+            // Green header section (fixed height based on Figma: 397px)
             _buildGreenHeader(),
             // White content section with rounded top
             _buildWhiteContent(),
@@ -279,6 +279,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   /// "가까운 약속은?" section with home appointment card
+  /// Figma: left=20, top=413 (relative to screen), gap=16
   Widget _buildNearestAppointmentSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -286,6 +287,7 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Section title with arrow - height 28
+          // Figma: txt_title_ios, width=335, height=28
           SizedBox(
             height: 28,
             child: Row(
@@ -297,6 +299,7 @@ class HomeScreen extends StatelessWidget {
                     color: AppColors.gray8,
                   ),
                 ),
+                // ic_right: 24x24, positioned at left=311, top=2 (relative)
                 GestureDetector(
                   onTap: () {
                     // Navigate to appointment detail
@@ -304,24 +307,30 @@ class HomeScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 24,
                     height: 24,
-                    child: AppIcons.right(
-                      color: AppColors.gray8,
-                      size: 24,
+                    child: SvgPicture.asset(
+                      AppAssets.icRight,
+                      width: 24,
+                      height: 24,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.gray8,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16), // gap: 16px
           // Home appointment card - 335x254
+          // Figma: home_card_appnt_ios
           HomeAppointmentCard(
             groupName: '모임 이름',
             appointmentName: '기말고사 모각작',
             location: '용산역',
             time: 'PM 2:00',
             currentTime: '',
-            progressValue: 0.17,
+            progressValue: 0.17, // 58px / 334px
             readyState: ProgressState.start,
             moveState: ProgressState.disabled,
             arriveState: ProgressState.disabled,
@@ -337,11 +346,13 @@ class HomeScreen extends StatelessWidget {
   }
 
   /// "다가올 나의 약속은?" section with horizontal scroll
+  /// Figma: left=20 (center), top=739, width=335, gap=16
   Widget _buildUpcomingAppointmentsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Section title - height 28
+        // Figma: txt_title_ios, width=335, height=28
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
@@ -358,15 +369,16 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 16), // gap: 16px
         // Horizontal scroll appointment cards
+        // Figma: gap=12 between cards
         SizedBox(
           height: 230,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: const [
-              // D-DAY card
+              // D-DAY card - Figma: grp_card_appnt, width=200
               AppointmentCard(
                 dateType: AppointmentDateType.dDay,
                 dDayText: 'D-DAY',
@@ -377,8 +389,8 @@ class HomeScreen extends StatelessWidget {
                 location: '사당역 4번 출구',
                 showChip: true,
               ),
-              SizedBox(width: 12),
-              // D-3 card
+              SizedBox(width: 12), // gap: 12px
+              // D-3 card - Figma: grp_card_appnt, width=200
               AppointmentCard(
                 dateType: AppointmentDateType.dMinus,
                 dDayText: 'D-3',

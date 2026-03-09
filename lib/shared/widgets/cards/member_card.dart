@@ -99,6 +99,10 @@ class MemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Figma: grp_card_memb_ios (node 1:15626)
+    // width: 335, height: 72, borderRadius: 8
+    // Profile area: left: 14, top: 8, height: 56, width: 124
+    // Chip: right side, vertically centered
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -108,24 +112,28 @@ class MemberCard extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          child: Row(
-            children: [
-              // Profile image and name
-              Expanded(
-                child: Row(
-                  children: [
-                    _buildProfileImage(),
-                    const SizedBox(width: 12),
-                    _buildName(),
-                  ],
-                ),
+        child: Stack(
+          children: [
+            // Profile image and name - Figma: left: 14px (actual image at left:-2 from container = 12px)
+            Positioned(
+              left: 12,
+              top: 14,
+              child: Row(
+                children: [
+                  _buildProfileImage(),
+                  const SizedBox(width: 12),
+                  _buildName(),
+                ],
               ),
-              // Status chip
-              if (showStatusChip) _buildStatusChip(),
-            ],
-          ),
+            ),
+            // Status chip - Figma: left: 255px from card start
+            if (showStatusChip)
+              Positioned(
+                left: 255,
+                top: 22, // vertically centered: (72 - 28) / 2 = 22
+                child: _buildStatusChip(),
+              ),
+          ],
         ),
       ),
     );
@@ -167,6 +175,7 @@ class MemberCard extends StatelessWidget {
   }
 
   Widget _buildName() {
+    // Figma: body 03 style, color: #242424 (gray8)
     return Text(
       name,
       style: const TextStyle(
@@ -175,7 +184,7 @@ class MemberCard extends StatelessWidget {
         fontSize: 16,
         height: 1.6,
         letterSpacing: -0.32,
-        color: Color(0xFF000000), // black0
+        color: Color(0xFF242424), // gray8
       ),
     );
   }
