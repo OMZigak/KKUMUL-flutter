@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kkumul/shared/widgets/theme/app_colors.dart';
 import 'package:kkumul/shared/widgets/theme/app_text_styles.dart';
 import 'package:kkumul/shared/widgets/cards/home_appointment_card.dart';
 import 'package:kkumul/shared/widgets/cards/appointment_card.dart';
 import 'package:kkumul/shared/widgets/icons/app_icons.dart';
+import 'package:kkumul/shared/constants/app_assets.dart';
 
-/// Home screen for the Kkumul app
+/// Home screen for the Kkumul app (홈_1단계)
 ///
-/// Displays:
-/// - Green header with logo, welcome message, character, and level chip
-/// - Nearest appointment card with progress tracker
-/// - Upcoming appointments horizontal scroll list
+/// Matches Figma node 1:15377 exactly
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -18,57 +17,56 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.mainColor,
-      body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Top green section
-              _buildTopSection(),
-              // White content section
-              _buildContentSection(),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Green header section (fixed height based on Figma)
+            _buildGreenHeader(),
+            // White content section with rounded top
+            _buildWhiteContent(),
+          ],
         ),
       ),
     );
   }
 
-  /// Builds the top green section with logo, welcome message, character, and level chip
-  Widget _buildTopSection() {
+  /// Green header section - matches Figma exactly
+  /// Total height: ~397px (from top to where white section starts)
+  Widget _buildGreenHeader() {
     return Container(
+      height: 397,
       color: AppColors.mainColor,
       child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 14),
-                // Logo
-                _buildLogo(),
-                const SizedBox(height: 24),
-                // Welcome message
-                _buildWelcomeMessage(),
-                const SizedBox(height: 16),
-                // Speech bubble
-                _buildSpeechBubble(),
-                const SizedBox(height: 16),
-              ],
-            ),
+          // Status bar area (44px)
+          // Logo - position: left=20, top=58, size=64x24
+          Positioned(
+            left: 20,
+            top: 58,
+            child: _buildLogo(),
           ),
-          // Character image (positioned on the right)
+          // Welcome message - position: left=20, top=106
+          Positioned(
+            left: 20,
+            top: 106,
+            child: _buildWelcomeMessage(),
+          ),
+          // Character area - position: right=0, top=150, size=160x198
           Positioned(
             right: 0,
-            top: 106,
+            top: 150,
             child: _buildCharacterArea(),
           ),
-          // Level chip (positioned below character)
+          // Speech bubble with vertical bar - position: left=20, top=257
           Positioned(
-            right: 38,
-            top: 306,
+            left: 20,
+            top: 257,
+            child: _buildSpeechBubble(),
+          ),
+          // Level chip - position: left=223, top=350
+          Positioned(
+            left: 223,
+            top: 350,
             child: _buildLevelChip(),
           ),
         ],
@@ -76,26 +74,31 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  /// Builds the logo text
+  /// Logo widget - 64x24
   Widget _buildLogo() {
-    return const Text(
-      '\uAFB8\uBB3C\uAFB8',
-      style: TextStyle(
-        fontFamily: 'Pretendard',
-        fontWeight: FontWeight.w700,
-        fontSize: 24,
-        height: 1.6,
-        letterSpacing: -0.48,
-        color: AppColors.white,
+    return SizedBox(
+      width: 64,
+      height: 24,
+      child: SvgPicture.asset(
+        AppAssets.logo,
+        width: 64,
+        height: 24,
+        colorFilter: const ColorFilter.mode(
+          AppColors.white,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }
 
-  /// Builds the welcome message with highlighted numbers
+  /// Welcome message with highlighted numbers
+  /// Text spans with different styles matching Figma
   Widget _buildWelcomeMessage() {
+    const lightGreen = Color(0xFFEAFF84);
+
     return RichText(
-      text: TextSpan(
-        style: const TextStyle(
+      text: const TextSpan(
+        style: TextStyle(
           fontFamily: 'Pretendard',
           fontSize: 24,
           height: 1.6,
@@ -103,30 +106,30 @@ class HomeScreen extends StatelessWidget {
           color: AppColors.white,
         ),
         children: [
-          const TextSpan(
-            text: '\uAFB8\uBB3C\uB9AC\uC548 \uB2D8,\n',
+          TextSpan(
+            text: '꾸물리안 님, \n',
             style: TextStyle(fontWeight: FontWeight.w700),
           ),
           TextSpan(
-            text: '14\uBC88',
+            text: '14번',
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: const Color(0xFFEAFF84), // lightgreen
+              color: lightGreen,
             ),
           ),
-          const TextSpan(
-            text: '\uC758 \uC57D\uC18D\uC5D0\uC11C\n',
+          TextSpan(
+            text: '의 약속에서\n',
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
           TextSpan(
-            text: '10\uBC88',
+            text: '10번',
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: const Color(0xFFEAFF84), // lightgreen
+              color: lightGreen,
             ),
           ),
-          const TextSpan(
-            text: ' \uAFB8\uBB3C\uAC70\uB838\uC5B4\uC694!',
+          TextSpan(
+            text: ' 꾸물거렸어요!',
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
         ],
@@ -134,112 +137,123 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  /// Builds the speech bubble with welcome tip
+  /// Speech bubble with vertical green bar
+  /// Bar: left=52 (relative 32px), width=11, height=140
+  /// Bubble: left=0, top=10, width=186, height=50
   Widget _buildSpeechBubble() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Speech bubble arrow/connector
-        Container(
-          width: 11,
-          height: 140,
-          decoration: const BoxDecoration(
-            color: AppColors.green3,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4),
-              topRight: Radius.circular(4),
+    return SizedBox(
+      width: 186,
+      height: 140,
+      child: Stack(
+        children: [
+          // Vertical green bar (connector)
+          Positioned(
+            left: 32,
+            top: 0,
+            child: Container(
+              width: 11,
+              height: 140,
+              decoration: const BoxDecoration(
+                color: AppColors.green3,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4),
+                  topRight: Radius.circular(4),
+                ),
+              ),
             ),
           ),
-        ),
-        // Speech bubble content
-        Expanded(
-          child: Stack(
-            children: [
-              // Bubble background
-              Container(
-                height: 50,
-                margin: const EdgeInsets.only(top: 10),
-                decoration: BoxDecoration(
-                  color: AppColors.green3.withValues(alpha: 0.9),
-                  borderRadius: BorderRadius.circular(8),
+          // Speech bubble
+          Positioned(
+            left: 0,
+            top: 10,
+            child: Container(
+              width: 186,
+              height: 50,
+              decoration: BoxDecoration(
+                color: AppColors.green3,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.',
+                style: TextStyle(
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 10,
+                  height: 1.6,
+                  letterSpacing: -0.2,
+                  color: AppColors.white,
                 ),
               ),
-              // Bubble text
-              Container(
-                height: 50,
-                margin: const EdgeInsets.only(top: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '\uAFB8\uBB3C\uAFB8\uC5D0 \uC624\uC2E0 \uAC83\uC744 \uD658\uC601\uD574\uC694!\n\uC815\uC2DC \uB3C4\uCC29\uC73C\uB85C \uCE90\uB9AD\uD130\uB97C \uC131\uC7A5\uC2DC\uCF1C \uBCF4\uC138\uC694.',
-                  style: AppTextStyles.label01.copyWith(
-                    color: AppColors.white,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
-    );
-  }
-
-  /// Builds the character placeholder area
-  Widget _buildCharacterArea() {
-    return Container(
-      width: 160,
-      height: 198,
-      alignment: Alignment.center,
-      child: Container(
-        width: 156,
-        height: 134,
-        decoration: BoxDecoration(
-          color: AppColors.white.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Icon(
-            Icons.pets,
-            size: 64,
-            color: AppColors.white.withValues(alpha: 0.6),
-          ),
-        ),
+        ],
       ),
     );
   }
 
-  /// Builds the level chip
+  /// Character area - 160x198, character image 156x134
+  Widget _buildCharacterArea() {
+    return SizedBox(
+      width: 160,
+      height: 198,
+      child: Stack(
+        children: [
+          // Character image from Figma
+          Positioned(
+            right: 0,
+            top: 14,
+            child: Image.asset(
+              AppAssets.characterLv1,
+              width: 156,
+              height: 134,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Level chip - 114x28, rounded full
   Widget _buildLevelChip() {
     return Container(
+      width: 114,
       height: 28,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(200),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Lv.1',
-            style: AppTextStyles.caption01.copyWith(
-              color: AppColors.mainColor,
+      child: Center(
+        child: RichText(
+          text: const TextSpan(
+            style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+              height: 1.6,
+              letterSpacing: -0.24,
             ),
+            children: [
+              TextSpan(
+                text: 'Lv.1',
+                style: TextStyle(color: AppColors.mainColor),
+              ),
+              TextSpan(
+                text: '  빼꼼 꾸물이',
+                style: TextStyle(color: AppColors.gray8),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          Text(
-            '\uBE7C\uAF5D \uAFB8\uBB3C\uC774',
-            style: AppTextStyles.caption01.copyWith(
-              color: AppColors.gray8,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  /// Builds the white content section with appointment cards
-  Widget _buildContentSection() {
+  /// White content section with rounded top corners
+  Widget _buildWhiteContent() {
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.white,
@@ -248,51 +262,73 @@ class HomeScreen extends StatelessWidget {
           topRight: Radius.circular(24),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Nearest appointment section
-            _buildNearestAppointmentSection(),
-            const SizedBox(height: 32),
-            // Upcoming appointments section
-            _buildUpcomingAppointmentsSection(),
-            const SizedBox(height: 100), // Bottom padding for navigation bar
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          // "가까운 약속은?" section
+          _buildNearestAppointmentSection(),
+          const SizedBox(height: 32),
+          // "다가올 나의 약속은?" section
+          _buildUpcomingAppointmentsSection(),
+          // Bottom padding for navigation bar
+          const SizedBox(height: 100),
+        ],
       ),
     );
   }
 
-  /// Builds the nearest appointment section
+  /// "가까운 약속은?" section with home appointment card
   Widget _buildNearestAppointmentSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section title with arrow
-          _buildSectionTitle(
-            title: '\uAC00\uAE4C\uC6B4 \uC57D\uC18D\uC740?',
-            showArrow: true,
+          // Section title with arrow - height 28
+          SizedBox(
+            height: 28,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '가까운 약속은?',
+                  style: AppTextStyles.body01.copyWith(
+                    color: AppColors.gray8,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to appointment detail
+                  },
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: AppIcons.right(
+                      color: AppColors.gray8,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
-          // Home appointment card
+          // Home appointment card - 335x254
           HomeAppointmentCard(
-            groupName: '\uBAA8\uC784 \uC774\uB984',
-            appointmentName: '\uAE30\uB9D0\uACE0\uC0AC \uBAA8\uAC01\uC791',
-            location: '\uC6A9\uC0B0\uC5ED',
+            groupName: '모임 이름',
+            appointmentName: '기말고사 모각작',
+            location: '용산역',
             time: 'PM 2:00',
             currentTime: '',
             progressValue: 0.17,
             readyState: ProgressState.start,
             moveState: ProgressState.disabled,
             arriveState: ProgressState.disabled,
-            readyLabel: '\uC900\uBE44 \uC911',
-            moveLabel: '\uC774\uB3D9 \uC2DC\uC791',
-            arriveLabel: '\uB3C4\uCC29 \uC644\uB8CC',
-            helpMessage: '\uC774\uB3D9\uC744 \uC2DC\uC791 \uC2DC \uB20C\uB7EC\uC8FC\uC138\uC694',
+            readyLabel: '준비 중',
+            moveLabel: '이동 시작',
+            arriveLabel: '도착 완료',
+            helpMessage: '이동을 시작 시 눌러주세요',
             showChip: true,
           ),
         ],
@@ -300,93 +336,62 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  /// Builds the upcoming appointments section
+  /// "다가올 나의 약속은?" section with horizontal scroll
   Widget _buildUpcomingAppointmentsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Section title
+        // Section title - height 28
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: _buildSectionTitle(
-            title: '\uB2E4\uAC00\uC62C \uB098\uC758 \uC57D\uC18D\uC740?',
-            showArrow: false,
+          child: SizedBox(
+            height: 28,
+            child: Row(
+              children: [
+                Text(
+                  '다가올 나의 약속은?',
+                  style: AppTextStyles.body01.copyWith(
+                    color: AppColors.gray8,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        // Horizontal scroll list of appointment cards
+        // Horizontal scroll appointment cards
         SizedBox(
           height: 230,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            children: [
-              // D-DAY appointment card
+            children: const [
+              // D-DAY card
               AppointmentCard(
                 dateType: AppointmentDateType.dDay,
                 dDayText: 'D-DAY',
-                groupName: '\uC5F4\uAE30\uD31F',
-                appointmentName: '\uCE94\uB514\uD31F \uBAA8\uAC01\uC791',
+                groupName: '열기팟',
+                appointmentName: '캔디팟 모각작',
                 date: '2024.06.01',
                 time: 'PM 6:00',
-                location: '\uC0AC\uB2F9\uC5ED 4\uBC88 \uCD9C\uAD6C',
+                location: '사당역 4번 출구',
                 showChip: true,
               ),
-              const SizedBox(width: 12),
-              // D-3 appointment card
+              SizedBox(width: 12),
+              // D-3 card
               AppointmentCard(
                 dateType: AppointmentDateType.dMinus,
                 dDayText: 'D-3',
-                groupName: '\uCE94\uB514\uD31F',
-                appointmentName: '\uC57D\uC18D\uBA85',
+                groupName: '캔디팟',
+                appointmentName: '약속명',
                 date: '2024.06.01',
                 time: 'PM 2:00',
-                location: '\uC6A9\uC0B0\uC5ED',
-                showChip: true,
-              ),
-              const SizedBox(width: 12),
-              // Additional card for scroll demonstration
-              AppointmentCard(
-                dateType: AppointmentDateType.dMinus,
-                dDayText: 'D-7',
-                groupName: '\uC2A4\uD130\uB514\uBAA8\uC784',
-                appointmentName: '\uC8FC\uAC04 \uC2A4\uD130\uB514',
-                date: '2024.06.08',
-                time: 'PM 3:00',
-                location: '\uAC15\uB0A8\uC5ED \uC2A4\uD0C0\uBC85\uC2A4',
+                location: '용산역',
                 showChip: true,
               ),
             ],
           ),
         ),
-      ],
-    );
-  }
-
-  /// Builds a section title with optional right arrow
-  Widget _buildSectionTitle({
-    required String title,
-    bool showArrow = false,
-  }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: AppTextStyles.body01.copyWith(
-            color: AppColors.gray8,
-          ),
-        ),
-        if (showArrow)
-          GestureDetector(
-            onTap: () {
-              // Navigate to appointment detail
-            },
-            child: AppIcons.right(
-              color: AppColors.gray8,
-              size: 24,
-            ),
-          ),
       ],
     );
   }

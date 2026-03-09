@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 427320467">
+<circle id="Ellipse 42" cx="12" cy="12" r="12" fill="var(--fill-0, #6F6F6F)"/>
+<g id="edit">
+<rect width="15" height="16" transform="translate(5 5)" fill="#6F6F6F"/>
+<path id="Vector" d="M14.7605 6.69356C14.9095 6.54684 15.0864 6.43045 15.2811 6.35104C15.4758 6.27164 15.6845 6.23077 15.8952 6.23077C16.106 6.23077 16.3147 6.27164 16.5094 6.35104C16.7041 6.43045 16.881 6.54684 17.03 6.69356C17.179 6.84028 17.2972 7.01447 17.3778 7.20617C17.4585 7.39787 17.5 7.60334 17.5 7.81084C17.5 8.01834 17.4585 8.2238 17.3778 8.4155C17.2972 8.60721 17.179 8.78139 17.03 8.92811L9.37052 16.4697L6.25 17.3077L7.10105 14.2352L14.7605 6.69356Z" stroke="var(--stroke-0, white)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

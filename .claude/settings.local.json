@@ -14,7 +14,13 @@
       "mcp__figma-desktop__get_metadata",
       "Bash(cat:*)",
       "Bash(flutter pub:*)",
-      "Bash(flutter devices)"
+      "Bash(flutter devices)",
+      "Bash(open -a Simulator)",
+      "Bash(flutter emulators:*)",
+      "Bash(xcrun simctl:*)",
+      "Bash(flutter doctor:*)",
+      "Bash(flutter run:*)",
+      "Bash(curl:*)"
     ]
   }
 }

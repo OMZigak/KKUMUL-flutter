@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="pathfinder-trim">
+<path id="Vector" d="M16.0714 5.14286H7.07143C6.0063 5.14286 5.14286 6.0063 5.14286 7.07143V16.0714C5.14286 17.1365 6.0063 18 7.07143 18H16.0714C17.1365 18 18 17.1365 18 16.0714V7.07143C18 6.0063 17.1365 5.14286 16.0714 5.14286Z" fill="var(--fill-0, #DFDFDF)"/>
+<path id="Subtract" fill-rule="evenodd" clip-rule="evenodd" d="M1.92857 0H10.9286C11.9937 0 12.8571 0.863451 12.8571 1.92857V3.53571H7.07143C5.11871 3.53571 3.53571 5.11871 3.53571 7.07143V12.8571H1.92857C0.863451 12.8571 0 11.9937 0 10.9286V1.92857C0 0.863451 0.863451 0 1.92857 0Z" fill="var(--fill-0, #DFDFDF)"/>
+</g>
+</svg>

@@ -109,6 +109,7 @@ class HomeAppointmentCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 335,
+        height: 254, // Fixed height per Figma
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(8),
@@ -120,9 +121,10 @@ class HomeAppointmentCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Top section: Chip, name, location/time
+            // Top section: Chip, name, location/time (112px)
             _buildTopSection(),
-            // Bottom section: Progress bar and buttons
+            const SizedBox(height: 12), // Gap per Figma
+            // Bottom section: Progress bar and buttons (103px)
             _buildProgressSection(),
           ],
         ),
@@ -132,36 +134,47 @@ class HomeAppointmentCard extends StatelessWidget {
 
   Widget _buildTopSection() {
     return Container(
+      height: 112, // Fixed height per Figma
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          // Chip and appointment name
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (showChip && groupName.isNotEmpty) ...[
-                _buildGroupChip(),
-                const SizedBox(height: 4),
-              ],
-              Text(
-                appointmentName,
-                style: const TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  height: 1.6,
-                  letterSpacing: -0.32,
-                  color: Color(0xFF242424),
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Chip and appointment name
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (showChip && groupName.isNotEmpty) ...[
+                        _buildGroupChip(),
+                        const SizedBox(height: 4),
+                      ],
+                      Text(
+                        appointmentName,
+                        style: const TextStyle(
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          height: 1.6,
+                          letterSpacing: -0.32,
+                          color: Color(0xFF242424),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  // Location and time row
+                  _buildLocationTimeRow(),
+                ],
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: 8),
-          // Location and time row
-          _buildLocationTimeRow(),
         ],
       ),
     );
@@ -241,38 +254,46 @@ class HomeAppointmentCard extends StatelessWidget {
     return SizedBox(
       height: 103,
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          // Progress bar
+          // Progress bar - positioned at vertical center minus offset
           Positioned(
             left: 0,
-            right: 0,
-            top: 52,
+            right: 4,
+            top: 31.5,
             child: _buildProgressBar(),
           ),
-          // Progress buttons
+          // Progress buttons row
           Positioned.fill(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
+                // Ready button (준비 중)
+                SizedBox(
+                  width: 110,
                   child: _buildProgressButton(
                     state: readyState,
                     label: readyLabel,
                     showTime: readyState == ProgressState.inProgress,
                     timeText: currentTime,
+                    showHelpMessage:
+                        readyState == ProgressState.start && helpMessage != null,
+                    helpText: helpMessage,
                     onTap: onReadyTap,
                   ),
                 ),
-                Expanded(
+                // Move button (이동 시작)
+                SizedBox(
+                  width: 110,
                   child: _buildProgressButton(
                     state: moveState,
                     label: moveLabel,
-                    showHelpMessage:
-                        moveState == ProgressState.start && helpMessage != null,
-                    helpText: helpMessage,
                     onTap: onMoveTap,
                   ),
                 ),
-                Expanded(
+                // Arrive button (도착 완료)
+                SizedBox(
+                  width: 110,
                   child: _buildProgressButton(
                     state: arriveState,
                     label: arriveLabel,
@@ -290,15 +311,17 @@ class HomeAppointmentCard extends StatelessWidget {
   Widget _buildProgressBar() {
     return Container(
       height: 5,
-      margin: const EdgeInsets.symmetric(horizontal: 0.5),
-      decoration: BoxDecoration(
+      width: 334,
+      decoration: const BoxDecoration(
         color: AppColors.gray2,
       ),
       child: FractionallySizedBox(
         alignment: Alignment.centerLeft,
         widthFactor: progressValue.clamp(0.0, 1.0),
         child: Container(
-          color: AppColors.mainColor,
+          decoration: const BoxDecoration(
+            color: AppColors.mainColor,
+          ),
         ),
       ),
     );
@@ -315,24 +338,10 @@ class HomeAppointmentCard extends StatelessWidget {
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        // Time text (if showing)
-        if (showTime && timeText != null) ...[
-          Text(
-            timeText,
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-              height: 1.6,
-              letterSpacing: -0.24,
-              color: Color(0xFF242424),
-            ),
-          ),
-          const SizedBox(height: 8),
-        ] else ...[
-          const SizedBox(height: 27),
-        ],
+        // Spacer for top alignment
+        const SizedBox(height: 8),
         // Progress point
         _buildProgressPoint(state),
         const SizedBox(height: 8),
@@ -367,21 +376,25 @@ class HomeAppointmentCard extends StatelessWidget {
         ),
         // Help message
         if (showHelpMessage && helpText != null) ...[
-          const SizedBox(height: 4),
-          Text(
-            helpText,
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontWeight: FontWeight.w400,
-              fontSize: 10,
-              height: 1.6,
-              letterSpacing: -0.2,
-              color: Color(0xFF8B8B8B),
+          const SizedBox(height: 2),
+          SizedBox(
+            height: 16,
+            child: Text(
+              helpText,
+              style: const TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w400,
+                fontSize: 10,
+                height: 1.6,
+                letterSpacing: -0.2,
+                color: Color(0xFF8B8B8B),
+              ),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
             ),
-            textAlign: TextAlign.center,
           ),
         ] else ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: 18),
         ],
       ],
     );
