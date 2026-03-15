@@ -1,0 +1,120 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Kkumul",
+  "@appTitle": {"description": "App title"},
+
+  "navHome": "Home",
+  "navMyGroups": "My Groups",
+  "navMyPage": "My Page",
+
+  "homeWelcomeUser": "Hello,",
+  "@homeWelcomeUser": {"description": "Welcome message with user name"},
+  "homeAppointmentCount": "{count} times",
+  "@homeAppointmentCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeAppointmentSuffix": " in appointments",
+  "homeLateCount": "{count} times",
+  "@homeLateCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeLateSuffix": " you were late!",
+  "homeWelcomeBubble": "Welcome to Kkumul!\nGrow your character by arriving on time.",
+  "homeLevelChip": "Peeking Kkumul",
+  "homeNearestAppointment": "Nearest appointment?",
+  "homeUpcomingAppointments": "Upcoming appointments?",
+
+  "groupTitle": "My Groups",
+  "groupAddButton": "Add Group",
+  "groupEmptyTitle": "No groups yet!\nTry adding a group.",
+  "groupTotalCount": "Total ",
+  "groupTotalSuffix": " groups!",
+  "groupNextAppointment": "Next appointment",
+  "groupJoinedCountPrefix": "'s joined groups:",
+
+  "createGroupTitle": "Enter the\ngroup name",
+  "createGroupHint": "Enter group name",
+  "createGroupConfirm": "Confirm",
+  "createGroupFailed": "Failed to create group. Please try again.",
+  "createGroupCodeCopied": "Invite code copied.",
+
+  "addGroupInviteSubtitle": "If you have an invite code",
+  "addGroupInviteTitle": "Enter invite code",
+  "addGroupCreateSubtitle": "If you don't have an invite code",
+  "addGroupCreateTitle": "Create a new group",
+
+  "inviteDialogTitle": "Share invite code",
+  "inviteDialogDescription": "Share the invite code with friends\nto join the group together!",
+  "inviteDialogLater": "Later",
+  "inviteDialogCopy": "Copy code",
+
+  "myPageTitle": "My Page",
+  "myPageUserName": "User",
+  "myPagePushNotification": "Push notifications",
+  "myPagePushDescription": "Receive push notifications when it's time\nto prepare or start moving.",
+  "myPageVersion": "Version",
+  "myPageTerms": "Terms of Service",
+  "myPageLogout": "Logout",
+  "myPageWithdraw": "Delete Account",
+  "myPageLogoutConfirm": "Are you sure you want to logout?",
+  "myPageWithdrawConfirm": "Are you sure you want to delete your account?\nAll data will be permanently deleted.",
+  "myPageLevelPrefix": "Late Master Kkumul",
+
+  "appointmentEdit": "Edit appointment",
+  "appointmentDelete": "Delete appointment",
+  "appointmentDeleteConfirm": "Are you sure you want to delete this appointment?",
+  "appointmentShareLink": "Share invite link",
+  "appointmentMembers": "Members",
+  "appointmentPenalty": "Late penalty",
+  "appointmentViewStatus": "View status",
+  "appointmentInputInfo": "Enter preparation info",
+  "appointmentInputInfoNav": "Navigate to preparation info screen.",
+
+  "tabAppointmentInfo": "Appointment Info",
+  "tabPreparationStatus": "Preparation Status",
+  "tabLateMembers": "Late Members",
+
+  "labelDate": "Date",
+  "labelTime": "Time",
+  "labelLocation": "Location",
+
+  "myPreparationStatus": "My preparation status",
+  "teamPreparationStatus": "Team preparation status",
+  "noLateMembers": "No one was late!",
+  "allOnTime": "Everyone arrived on time",
+
+  "statusBefore": "Waiting",
+  "statusReady": "Preparing",
+  "statusReadyShort": "Ready",
+  "statusMove": "Moving",
+  "statusMoveStart": "Start moving",
+  "statusArrive": "Arrived",
+  "statusArriveComplete": "Arrival complete",
+  "statusWaiting": "Waiting",
+  "statusDepart": "Depart",
+
+  "helpMessageMove": "Press when you start moving",
+  "helpMessagePress": "Press the button",
+  "popupNoTime": "No time to delay!",
+
+  "buttonCancel": "Cancel",
+  "buttonDelete": "Delete",
+  "buttonConfirm": "Confirm",
+
+  "kakaoLogin": "Login with Kakao",
+
+  "weekdayMon": "Mon",
+  "weekdayTue": "Tue",
+  "weekdayWed": "Wed",
+  "weekdayThu": "Thu",
+  "weekdayFri": "Fri",
+  "weekdaySat": "Sat",
+  "weekdaySun": "Sun",
+  "periodAM": "AM",
+  "periodPM": "PM"
+}

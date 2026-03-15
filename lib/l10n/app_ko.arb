@@ -1,0 +1,120 @@
+{
+  "@@locale": "ko",
+
+  "appTitle": "꾸물꿈",
+  "@appTitle": {"description": "App title"},
+
+  "navHome": "홈",
+  "navMyGroups": "내 모임",
+  "navMyPage": "마이페이지",
+
+  "homeWelcomeUser": "꾸물리안 님,",
+  "@homeWelcomeUser": {"description": "Welcome message with user name"},
+  "homeAppointmentCount": "{count}번",
+  "@homeAppointmentCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeAppointmentSuffix": "의 약속에서",
+  "homeLateCount": "{count}번",
+  "@homeLateCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeLateSuffix": " 꾸물거렸어요!",
+  "homeWelcomeBubble": "꾸물꿈에 오신 것을 환영해요!\n정시 도착으로 캐릭터를 성장시켜 보세요.",
+  "homeLevelChip": "빼꼼 꾸물이",
+  "homeNearestAppointment": "가까운 약속은?",
+  "homeUpcomingAppointments": "다가올 나의 약속은?",
+
+  "groupTitle": "내 모임",
+  "groupAddButton": "모임 추가하기",
+  "groupEmptyTitle": "아직 모임이 없네요!\n모임을 추가해 보세요.",
+  "groupTotalCount": "총 ",
+  "groupTotalSuffix": "개예요!",
+  "groupNextAppointment": "다음 약속",
+  "groupJoinedCountPrefix": "님이 가입한 모임은",
+
+  "createGroupTitle": "모임 이름을\n입력해 주세요",
+  "createGroupHint": "모임 이름 입력",
+  "createGroupConfirm": "확인",
+  "createGroupFailed": "모임 생성에 실패했습니다. 다시 시도해 주세요.",
+  "createGroupCodeCopied": "초대 코드가 복사되었습니다.",
+
+  "addGroupInviteSubtitle": "초대 코드를 받았다면",
+  "addGroupInviteTitle": "초대 코드 입력하기",
+  "addGroupCreateSubtitle": "초대 코드가 없다면",
+  "addGroupCreateTitle": "직접 모임 추가하기",
+
+  "inviteDialogTitle": "초대 코드 공유하기",
+  "inviteDialogDescription": "친구에게 초대 코드를 공유해\n함께 모임에 참여하세요!",
+  "inviteDialogLater": "나중에",
+  "inviteDialogCopy": "코드 복사",
+
+  "myPageTitle": "마이페이지",
+  "myPageUserName": "꾸물리안 님",
+  "myPagePushNotification": "내 푸쉬 알림",
+  "myPagePushDescription": "준비, 이동을 시작해야할 시간에\n푸쉬 알림을 받을 수 있습니다.",
+  "myPageVersion": "버전정보",
+  "myPageTerms": "이용약관",
+  "myPageLogout": "로그아웃",
+  "myPageWithdraw": "탈퇴하기",
+  "myPageLogoutConfirm": "정말 로그아웃 하시겠습니까?",
+  "myPageWithdrawConfirm": "정말 탈퇴하시겠습니까?\n탈퇴 시 모든 데이터가 삭제됩니다.",
+  "myPageLevelPrefix": "지각대장 꾸물이",
+
+  "appointmentEdit": "약속 수정",
+  "appointmentDelete": "약속 삭제",
+  "appointmentDeleteConfirm": "정말로 이 약속을 삭제하시겠습니까?",
+  "appointmentShareLink": "초대 링크 공유",
+  "appointmentMembers": "참여 멤버",
+  "appointmentPenalty": "지각 벌칙",
+  "appointmentViewStatus": "준비 현황 보기",
+  "appointmentInputInfo": "준비 정보 입력하기",
+  "appointmentInputInfoNav": "준비 정보 입력 화면으로 이동합니다.",
+
+  "tabAppointmentInfo": "약속 정보",
+  "tabPreparationStatus": "준비 현황",
+  "tabLateMembers": "지각 꾸물이",
+
+  "labelDate": "날짜",
+  "labelTime": "시간",
+  "labelLocation": "장소",
+
+  "myPreparationStatus": "나의 준비 현황",
+  "teamPreparationStatus": "우리들의 준비 현황",
+  "noLateMembers": "지각한 사람이 없어요!",
+  "allOnTime": "모두 제시간에 도착했습니다",
+
+  "statusBefore": "꾸물중",
+  "statusReady": "준비중",
+  "statusReadyShort": "준비 중",
+  "statusMove": "이동중",
+  "statusMoveStart": "이동 시작",
+  "statusArrive": "도착",
+  "statusArriveComplete": "도착 완료",
+  "statusWaiting": "대기중",
+  "statusDepart": "출발",
+
+  "helpMessageMove": "이동을 시작 시 눌러주세요",
+  "helpMessagePress": "버튼을 눌러주세요",
+  "popupNoTime": "꾸물거릴 시간이 없어요!",
+
+  "buttonCancel": "취소",
+  "buttonDelete": "삭제",
+  "buttonConfirm": "확인",
+
+  "kakaoLogin": "카카오로 로그인",
+
+  "weekdayMon": "월",
+  "weekdayTue": "화",
+  "weekdayWed": "수",
+  "weekdayThu": "목",
+  "weekdayFri": "금",
+  "weekdaySat": "토",
+  "weekdaySun": "일",
+  "periodAM": "오전",
+  "periodPM": "오후"
+}
