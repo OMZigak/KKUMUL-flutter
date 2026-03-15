@@ -19,10 +19,12 @@ class AppAssets {
 
   // Profile
   static const String profileDefault = 'assets/images/profile_default.svg';
+  static const String profileBasic = 'assets/images/ic_profile_basic.png';
 
   // Backgrounds
   static const String speechBubbleBg = 'assets/images/speech_bubble_bg.svg';
   static const String whiteSectionBg = 'assets/images/white_section_bg.svg';
+  static const String tooltipBubble = 'assets/icons/tooltip_bubble.svg';
 
   // ============ Icons ============
 
@@ -41,11 +43,14 @@ class AppAssets {
 
   // Action icons
   static const String icRight = 'assets/icons/ic_right.svg';
+  static const String icBack = 'assets/icons/ic_back.svg';
+  static const String icMore = 'assets/icons/ic_more.svg';
   static const String icEditProfile = 'assets/icons/ic_edit_profile.svg';
   static const String icGrpplus = 'assets/icons/ic_grpplus.svg';
 
   // State icons
   static const String readyPoint = 'assets/icons/ready_point.svg';
+  static const String readyPointActive = 'assets/icons/ready_point_active.svg';
   static const String icToggleCircle = 'assets/icons/ic_toggle_circle.svg';
 
   // System
