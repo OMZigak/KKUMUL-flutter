@@ -266,10 +266,10 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16),
-          // "가까운 약속은?" section
+          // "가까운 약속은?" section - Figma: top=413 (relative: 16px from white section)
           _buildNearestAppointmentSection(),
-          const SizedBox(height: 32),
-          // "다가올 나의 약속은?" section
+          const SizedBox(height: 28), // Figma: gap between sections = 739 - (413+298) = 28px
+          // "다가올 나의 약속은?" section - Figma: top=739
           _buildUpcomingAppointmentsSection(),
           // Bottom padding for navigation bar
           const SizedBox(height: 100),
@@ -300,6 +300,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 // ic_right: 24x24, positioned at left=311, top=2 (relative)
+                // Figma: gray4 (#A5A5A5) color
                 GestureDetector(
                   onTap: () {
                     // Navigate to appointment detail
@@ -312,7 +313,7 @@ class HomeScreen extends StatelessWidget {
                       width: 24,
                       height: 24,
                       colorFilter: const ColorFilter.mode(
-                        AppColors.gray8,
+                        AppColors.gray4,
                         BlendMode.srcIn,
                       ),
                     ),
@@ -371,9 +372,9 @@ class HomeScreen extends StatelessWidget {
         ),
         const SizedBox(height: 16), // gap: 16px
         // Horizontal scroll appointment cards
-        // Figma: gap=12 between cards
+        // Figma: grp_card_appnt height=216 + extra for padding
         SizedBox(
-          height: 230,
+          height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 20),
